@@ -48,7 +48,6 @@ const createContainerArrayFromContainerStringTable = (containerStrings: string[]
 
 const extractContainerMovementNumbers = (orderStrings: string[]): number[][] => {
   let orders: number[][] = []
-  let test = "move 11 from 4 to 1"
 
   for(let order of orderStrings) {
     let numberArray = order.match(/[0-9]+/gm)?.map(Number)
