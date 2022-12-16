@@ -34,8 +34,4 @@ const parseInput = (input: string): number => {
   return calorieList[0] + calorieList[1] + calorieList[2]
 }
 
-
-() => {
-
-}
 console.log(findElfWithMostFood())
