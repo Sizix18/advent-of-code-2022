@@ -9,3 +9,17 @@ export const parseInputFileToStringArray = (fileLocation: string): string[] => {
   let input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
   return input.split("\n")
 }
+
+export const parseInputFileToNumberArray = (fileLocation: string): number[][] => {
+  let numberArray: number[][] = []
+  let input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
+  let inputLines = input.split("\n")
+  for(let line of inputLines) {
+    if(line) {
+      numberArray.push(line.split("").map((value) => {
+          return parseInt(value, 0)
+        }))
+      }
+  }
+  return numberArray
+}
