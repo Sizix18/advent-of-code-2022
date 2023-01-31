@@ -12,20 +12,20 @@ Find the item type that appears in both compartments of each rucksack. What is t
 import { parseInputFileToString } from "../libraries/inputParser"
 
 const calculateTotalPriorityValue = () => {
-    let input: string = parseInputFileToString('./inputs/day3.txt')
-    let inputList: string[] = input.split("\n")
+    const input: string = parseInputFileToString('./inputs/day3.txt')
+    const inputList: string[] = input.split("\n")
     const CapitalACharCode = 'A'.charCodeAt(0)
     const LowerCaseACharCode = 'a'.charCodeAt(0)
     let priorityScore = 0
 
     inputList.forEach(rucksack => {
-        let compartmentOne = rucksack.slice(0, rucksack.length / 2)
-        let compartmentTwo = rucksack.slice(rucksack.length/2, rucksack.length)
-        let compartmentOneSet = new Set([...compartmentOne])
-        let compartmentTwoSet = new Set([...compartmentTwo])
+        const compartmentOne = rucksack.slice(0, rucksack.length / 2)
+        const compartmentTwo = rucksack.slice(rucksack.length/2, rucksack.length)
+        const compartmentOneSet = new Set([...compartmentOne])
+        const compartmentTwoSet = new Set([...compartmentTwo])
         
 
-        for(let item of compartmentTwoSet) {
+        for(const item of compartmentTwoSet) {
             if(compartmentOneSet.has(item)) {
                 if(item.charCodeAt(0) <= 90) {
                     priorityScore +=item.charCodeAt(0) - CapitalACharCode + 27
@@ -52,14 +52,14 @@ What is the sum of the priorities of those item types?
 
 
 const findPriorityBadgeForEachGroupOfThreeElves = () => {
-    let input: string = parseInputFileToString('./inputs/day3.txt')
-    let inputList: string[] = input.split("\n")
+    const input: string = parseInputFileToString('./inputs/day3.txt')
+    const inputList: string[] = input.split("\n")
     const CapitalACharCode = 'A'.charCodeAt(0)
     const LowerCaseACharCode = 'a'.charCodeAt(0)
     let priorityScore = 0
 
     let elfGroupStrings : string[] = []
-    let elfGroupList: string[][] = []
+    const elfGroupList: string[][] = []
     for(let rucksackIndex = 0; rucksackIndex < inputList.length; ++rucksackIndex) {
         elfGroupStrings.push(inputList[rucksackIndex])
         if((rucksackIndex+1) % 3 === 0){
@@ -69,22 +69,36 @@ const findPriorityBadgeForEachGroupOfThreeElves = () => {
     }
 
     elfGroupList.forEach(elfGroup => {
-        let elfOneSet = new Set(elfGroup[0])
-        let elfTwoSet = new Set(elfGroup[1])
-        let elfThreeSet = new Set(elfGroup[2])
+        const elfOneSet = new Set(elfGroup[0])
+        const elfTwoSet = new Set(elfGroup[1])
+        const elfThreeSet = new Set(elfGroup[2])
 
-        let elfGroupMap = new Map()
+        const elfGroupMap = new Map<string,number>()
         elfOneSet.forEach(item => {
             elfGroupMap.set(item, 1)
         })
         elfTwoSet.forEach(item => {
-            elfGroupMap.has(item) ? elfGroupMap.set(item, elfGroupMap.get(item) + 1): elfGroupMap.set(item, 1)
+            if(elfGroupMap.has(item)) {
+                const value = elfGroupMap.get(item)
+                if(value) {
+                    elfGroupMap.set(item, value + 1)
+                } else {
+                    elfGroupMap.set(item, 1)
+                }
+            }
         })
         elfThreeSet.forEach(item => {
-            elfGroupMap.has(item) ? elfGroupMap.set(item, elfGroupMap.get(item) + 1): elfGroupMap.set(item, 1)
+            if(elfGroupMap.has(item)) {
+                const value = elfGroupMap.get(item)
+                if(value) {
+                    elfGroupMap.set(item, value + 1)
+                } else {
+                    elfGroupMap.set(item, 1)
+                }
+            }
         })
 
-        for(let [key, value] of elfGroupMap.entries()) {
+        for(const [key, value] of elfGroupMap.entries()) {
             if(value === 3) {
                 if(key.charCodeAt(0) <= 90) {
                     priorityScore +=key.charCodeAt(0) - CapitalACharCode + 27

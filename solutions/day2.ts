@@ -11,20 +11,20 @@ import { parseInputFileToString } from '../libraries/inputParser'
 
 
 const rockPaperScissorsTournamentScore = () => {
-  let input = parseInputFileToString('./inputs/day2.txt')
+  const input = parseInputFileToString('./inputs/day2.txt')
   let opponentMove = ""
   let yourMove = ""
   let totalScore = 0
-  let values = new Map([['X', 1], ['Y', 2], ['Z', 3]])
+  const values = new Map([['X', 1], ['Y', 2], ['Z', 3]])
 
-  for(let char of input ) {
+  for(const char of input ) {
     if(char !== ' ' && char !== "\n" && char !== undefined) {
       if(opponentMove === "") opponentMove = char
       else {
         yourMove = char
         let roundScore = 0
         roundScore += values.get(yourMove) || 0
-        let roundResult = yourMove.charCodeAt(0) - opponentMove.charCodeAt(0)
+        const roundResult = yourMove.charCodeAt(0) - opponentMove.charCodeAt(0)
         if(roundResult % 3 === 0) {
           roundScore +=6
         } else if( roundResult === 23) {
@@ -63,16 +63,16 @@ Following the Elf's instructions for the second column, what would your total sc
 
 
 const rockPaperScissorsTournamentScoreWithTopSecretDecipher = () => {
-  let input = parseInputFileToString('./inputs/day2.txt')
+  const input = parseInputFileToString('./inputs/day2.txt')
   let opponentMove = ""
   let intendedRoundResult = ""
   let totalScore = 0
-  let pointMap = new Map([['X', 0], ['Y', 3], ['Z', 6]])
-  let winMap = new Map([['A', 2], ['B', 3], ['C', 1]])
-  let tieMap = new Map([['A', 1], ['B', 2], ['C', 3]])
-  let loseMap = new Map([['A', 3], ['B', 1], ['C', 2]])
+  const pointMap = new Map([['X', 0], ['Y', 3], ['Z', 6]])
+  const winMap = new Map([['A', 2], ['B', 3], ['C', 1]])
+  const tieMap = new Map([['A', 1], ['B', 2], ['C', 3]])
+  const loseMap = new Map([['A', 3], ['B', 1], ['C', 2]])
 
-  for(let char of input ) {
+  for(const char of input ) {
     if(char !== ' ' && char !== "\n" && char !== undefined) {
       if(opponentMove === "") opponentMove = char
       else {

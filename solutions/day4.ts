@@ -11,17 +11,17 @@ import { parseInputFileToStringArray } from "../libraries/inputParser"
 
 
 const findCompletelyOverlappingPairs = (): number => {
-  let inputList: string[] = parseInputFileToStringArray('./inputs/day4.txt')
+  const inputList: string[] = parseInputFileToStringArray('./inputs/day4.txt')
   let overlapCount = 0
-  for(let elfPair of inputList){
+  for(const elfPair of inputList){
     if(elfPair !== ""){
-    let elfRanges = elfPair.split(",")
-    let elfOneRanges = elfRanges[0].split("-")
-    let elfTwoRanges = elfRanges[1].split("-")
-    let elfOneLower = parseInt(elfOneRanges[0])
-    let elfOneHigher = parseInt(elfOneRanges[1])
-    let elfTwoLower =  parseInt(elfTwoRanges[0])
-    let elfTwoHigher = parseInt(elfTwoRanges[1])
+    const elfRanges = elfPair.split(",")
+    const elfOneRanges = elfRanges[0].split("-")
+    const elfTwoRanges = elfRanges[1].split("-")
+    const elfOneLower = parseInt(elfOneRanges[0])
+    const elfOneHigher = parseInt(elfOneRanges[1])
+    const elfTwoLower =  parseInt(elfTwoRanges[0])
+    const elfTwoHigher = parseInt(elfTwoRanges[1])
     if((elfOneLower >= elfTwoLower && elfOneLower <= elfTwoHigher && elfOneHigher >= elfTwoLower && elfOneHigher <= elfTwoHigher) || 
       (elfTwoLower >= elfOneLower && elfTwoLower <= elfOneHigher && elfTwoHigher >= elfOneLower && elfTwoHigher <= elfOneHigher)) {
         overlapCount++
@@ -45,17 +45,17 @@ In how many assignment pairs do the ranges overlap?
 */
 
 const findOverlappingPairs = (): number => {
-  let inputList: string[] = parseInputFileToStringArray('./inputs/day4.txt')
+  const inputList: string[] = parseInputFileToStringArray('./inputs/day4.txt')
   let overlapCount = 0
-  for(let elfPair of inputList){
+  for(const elfPair of inputList){
     if(elfPair !== ""){
-    let elfRanges = elfPair.split(",")
-    let elfOneRanges = elfRanges[0].split("-")
-    let elfTwoRanges = elfRanges[1].split("-")
-    let elfOneLower = parseInt(elfOneRanges[0])
-    let elfOneHigher = parseInt(elfOneRanges[1])
-    let elfTwoLower =  parseInt(elfTwoRanges[0])
-    let elfTwoHigher = parseInt(elfTwoRanges[1])
+    const elfRanges = elfPair.split(",")
+    const elfOneRanges = elfRanges[0].split("-")
+    const elfTwoRanges = elfRanges[1].split("-")
+    const elfOneLower = parseInt(elfOneRanges[0])
+    const elfOneHigher = parseInt(elfOneRanges[1])
+    const elfTwoLower =  parseInt(elfTwoRanges[0])
+    const elfTwoHigher = parseInt(elfTwoRanges[1])
     if((elfOneLower >= elfTwoLower && elfOneLower <= elfTwoHigher) || 
       (elfOneHigher >= elfTwoLower && elfOneHigher <= elfTwoHigher) || 
       (elfTwoLower >= elfOneLower && elfTwoLower <= elfOneHigher) || 

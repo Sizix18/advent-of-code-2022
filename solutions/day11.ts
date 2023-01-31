@@ -22,17 +22,17 @@ class Monkey {
 }
 
 function parseInputToMonkeyList(inputList: string[]): Monkey[] {
-  let monkeys: Monkey[] = []
+  const monkeys: Monkey[] = []
 
   for(let lineIndex = 0; lineIndex < inputList.length; ++lineIndex) {
     if(inputList[lineIndex].includes('Monkey')) {
-      let items = inputList[lineIndex+1].match(/[0-9]+/g)?.map(num => parseInt(num, 0)) || []
-      let operationSign = inputList[lineIndex+2].match(/[\+\-\*]/g)?.pop() || ''
-      let operationValue = inputList[lineIndex+2].split(' ').pop() || ''
-      let testValue = inputList[lineIndex+3].match(/[0-9]+/g)?.map(parseInt).pop() || 0
-      let trueDestination = inputList[lineIndex+4].match(/[0-9]+/g)?.map(parseInt).pop() || 0
-      let falseDestination = inputList[lineIndex+5].match(/[0-9]+/g)?.map(parseInt).pop() || 0
-      let monkey = new Monkey(items, operationSign, operationValue, testValue, [trueDestination, falseDestination])
+      const items = inputList[lineIndex+1].match(/[0-9]+/g)?.map(num => parseInt(num, 0)) || []
+      const operationSign = inputList[lineIndex+2].match(/[+-*]/g)?.pop() || ''
+      const operationValue = inputList[lineIndex+2].split(' ').pop() || ''
+      const testValue = inputList[lineIndex+3].match(/[0-9]+/g)?.map(parseInt).pop() || 0
+      const trueDestination = inputList[lineIndex+4].match(/[0-9]+/g)?.map(parseInt).pop() || 0
+      const falseDestination = inputList[lineIndex+5].match(/[0-9]+/g)?.map(parseInt).pop() || 0
+      const monkey = new Monkey(items, operationSign, operationValue, testValue, [trueDestination, falseDestination])
       monkeys.push(monkey)
       lineIndex += 6
     }
@@ -42,12 +42,12 @@ function parseInputToMonkeyList(inputList: string[]): Monkey[] {
 }
 
 const findTwoMostActiveMonkeys = () => {
-  let inputList = parseInputFileToStringArray('./inputs/day11.txt')
-  let monkeys: Monkey[] = parseInputToMonkeyList(inputList)
-  let monkeyActivityCount = Array.from(Array(monkeys.length), () => 0)
+  const inputList = parseInputFileToStringArray('./inputs/day11.txt')
+  const monkeys: Monkey[] = parseInputToMonkeyList(inputList)
+  const monkeyActivityCount = Array.from(Array(monkeys.length), () => 0)
 
   for(let i = 0; i < 20; ++i){
-    for(let [index, monkey] of monkeys.entries()) {
+    for(const [index, monkey] of monkeys.entries()) {
       while(monkey.items.length > 0) {
         monkeyActivityCount[index]++
         let worryLevel = monkey.items.shift() || 0
@@ -79,7 +79,10 @@ const findTwoMostActiveMonkeys = () => {
   }
 
   monkeyActivityCount.sort((a,b) => b-a)
-  return monkeyActivityCount.shift()! * monkeyActivityCount.shift()!
+  const largestCount = monkeyActivityCount.shift() || 0
+  const secondLargestCount = monkeyActivityCount.shift() || 0
+
+  return largestCount * secondLargestCount
 
 }
 
@@ -88,13 +91,13 @@ console.log(findTwoMostActiveMonkeys())
 
 
 const findTwoMostActiveMonkeysWithNoStressMitigation = () => {
-  let inputList = parseInputFileToStringArray('./inputs/day11.txt')
-  let monkeys: Monkey[] = parseInputToMonkeyList(inputList)
-  let monkeyActivityCount = Array.from(Array(monkeys.length), () => 0)
-  let mod = monkeys.reduce((a,b) => a * b.testValue, 1)
+  const inputList = parseInputFileToStringArray('./inputs/day11.txt')
+  const monkeys: Monkey[] = parseInputToMonkeyList(inputList)
+  const monkeyActivityCount: number[] = Array.from(Array(monkeys.length), () => 0)
+  const mod = monkeys.reduce((a,b) => a * b.testValue, 1)
 
   for(let i = 0; i < 10000; ++i){
-    for(let [index, monkey] of monkeys.entries()) {
+    for(const [index, monkey] of monkeys.entries()) {
       while(monkey.items.length > 0) {
         monkeyActivityCount[index]++
         let worryLevel = monkey.items.shift() || 0
@@ -123,7 +126,10 @@ const findTwoMostActiveMonkeysWithNoStressMitigation = () => {
     }
   }
   monkeyActivityCount.sort((a,b) => b-a)
-  return monkeyActivityCount.shift()! * monkeyActivityCount.shift()!
+  const largestCount = monkeyActivityCount.shift() || 0
+  const secondLargestCount = monkeyActivityCount.shift() || 0
+
+  return largestCount * secondLargestCount
 
 }
 

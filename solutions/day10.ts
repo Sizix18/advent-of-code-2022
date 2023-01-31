@@ -14,13 +14,13 @@ import { parseInputFileToStringArray } from '../libraries/inputParser'
 type instruction = [string, number] | [string]
 
 const convertInputArrayToInstructions = (inputList: string[]): instruction[] => {
-  let instructions: instruction[] = []
-  for(let line of inputList) {
+  const instructions: instruction[] = []
+  for(const line of inputList) {
     if(line.length > 0){
       if(line === 'noop') {
         instructions.push([line])
       } else {
-        let instruction = line.split(" ")
+        const instruction = line.split(" ")
         instructions.push([instruction[0], parseInt(instruction[1])])
       }
     }
@@ -29,19 +29,19 @@ const convertInputArrayToInstructions = (inputList: string[]): instruction[] => 
 }
 
 const calculateSignalStrengths = () => {
-  let inputList = parseInputFileToStringArray('./inputs/day10.txt')
-  let instructions = convertInputArrayToInstructions(inputList)
-  let cycles = Array.from(Array(instructions.length * 2), () => 0)
+  const inputList = parseInputFileToStringArray('./inputs/day10.txt')
+  const instructions = convertInputArrayToInstructions(inputList)
+  const cycles = Array.from(Array(instructions.length * 2), () => 0)
   cycles[0] = 1
   let cycleIndex = 0
-  for(let instruction of instructions){
-    if(instruction.length > 1 ) {
-      cycles[cycleIndex + 2] += instruction[1]!
+  for(const instruction of instructions){
+    if(instruction.length === 2 ) {
+      cycles[cycleIndex + 2] += instruction[1]
       cycleIndex++
     }
     cycleIndex++
   }
-  let vValues: number[] = []
+  const vValues: number[] = []
   let vTotal =0
   for(let i = 0; i < cycleIndex; ++i) {
     vTotal+= cycles[i]
@@ -54,7 +54,7 @@ const calculateSignalStrengths = () => {
   return sum
 }
 
-// console.log(calculateSignalStrengths())
+console.log(calculateSignalStrengths())
 
 
 
@@ -70,7 +70,7 @@ const isSpriteVisible = (cycle: number, spriteLocation: number) => {
   return cycle === spriteLocation -1 || cycle === spriteLocation  || cycle === spriteLocation + 1
 }
 const addPixelToScreen = (spriteLocation:number, cycle:number, screen: string[][]) => {
-  let row = Math.floor(cycle/40)
+  const row = Math.floor(cycle/40)
   if(isSpriteVisible(cycle % 40, spriteLocation)){
     screen[row].push('#')
   } else {
@@ -79,22 +79,22 @@ const addPixelToScreen = (spriteLocation:number, cycle:number, screen: string[][
 }
 
 const renderImageFromCycleInput = () => {
-  let inputList = parseInputFileToStringArray('./inputs/day10.txt')
-  let instructions = convertInputArrayToInstructions(inputList)
-  let cycles = Array.from(Array(instructions.length * 2), () => 0)
-  let screen = Array.from(Array(6), () => [] as string[])
+  const inputList = parseInputFileToStringArray('./inputs/day10.txt')
+  const instructions = convertInputArrayToInstructions(inputList)
+  const cycles = Array.from(Array(instructions.length * 2), () => 0)
+  const screen = Array.from(Array(6), () => [] as string[])
   cycles[0] = 1
   let cycleIndex = 0
 
-  for(let instruction of instructions){
+  for(const instruction of instructions){
     // get pixel location
     let pixelLocation = cycles[0]
     if(cycleIndex > 0){
       pixelLocation = cycles[cycleIndex - 1]
     }
 
-    if(instruction.length > 1 ) {
-      cycles[cycleIndex + 1] += instruction[1]!
+    if(instruction.length === 2 ) {
+      cycles[cycleIndex + 1] += instruction[1]
       addPixelToScreen(pixelLocation, cycleIndex, screen)
       if(cycleIndex > 0) {
         cycles[cycleIndex] += pixelLocation
@@ -110,7 +110,7 @@ const renderImageFromCycleInput = () => {
     ++cycleIndex
 
   }
-  for(let line of screen){
+  for(const line of screen){
     console.log(line.join(''))
   }
 

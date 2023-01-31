@@ -14,17 +14,17 @@ import { parseInputFileToNumberArray } from '../libraries/inputParser'
 
 
 const getCountOfVisibleTrees = () => {
-  let treeGrid = parseInputFileToNumberArray("./inputs/day8.txt")
-  let topTallestTree: number[] = new Array(treeGrid.length).fill(0)
-  let leftTallestTree: number[] = new Array(treeGrid[0].length).fill(0)
-  let bottomTallestTree: number[] = new Array(treeGrid.length).fill(0)
-  let rightTallestTree: number[] = new Array(treeGrid[0].length).fill(0)
-  let treeVisibility: boolean[][] = new Array(treeGrid.length).fill(false).map(() => new Array(treeGrid[0].length).fill(false))
+  const treeGrid = parseInputFileToNumberArray("./inputs/day8.txt")
+  const topTallestTree: number[] = new Array(treeGrid.length).fill(0) as number[]
+  const leftTallestTree: number[] = new Array(treeGrid[0].length).fill(0) as number[]
+  const bottomTallestTree: number[] = new Array(treeGrid.length).fill(0) as number[]
+  const rightTallestTree: number[] = new Array(treeGrid[0].length).fill(0) as number[]
+  const treeVisibility: boolean[][] = new Array(treeGrid.length).fill(false).map(() => new Array(treeGrid[0].length).fill(false) as boolean[]) 
   let visibleTreeCount = 0
 
   for(let row = 0; row < treeGrid.length; ++row) {
     for(let column = 0; column < treeGrid[row].length; ++column) {
-      let currentTree = treeGrid[row][column]
+      const currentTree = treeGrid[row][column]
 
       if(row >=1 && row < treeGrid[row].length - 1 && column >= 1 && column < treeGrid.length - 1) {
 
@@ -43,7 +43,7 @@ const getCountOfVisibleTrees = () => {
 
   for(let row = treeGrid.length - 1; row >= 0; --row) {
     for(let column = treeGrid[row].length - 1; column >= 0; --column) {
-      let currentTree = treeGrid[row][column]
+      const currentTree = treeGrid[row][column]
       if(treeVisibility[row][column] !== true){
         if(rightTallestTree[row] < currentTree || bottomTallestTree[column] < currentTree) {
           treeVisibility[row][column] = true
@@ -72,17 +72,17 @@ Consider each tree on your map. What is the highest scenic score possible for an
 
 
 const getMostScenicTreeScore = () => {
-  let treeGrid = parseInputFileToNumberArray("./inputs/day8.txt")
-  let topTallestTree: number[] = new Array(treeGrid.length).fill(0)
-  let leftTallestTree: number[] = new Array(treeGrid[0].length).fill(0)
-  let bottomTallestTree: number[] = new Array(treeGrid.length).fill(0)
-  let rightTallestTree: number[] = new Array(treeGrid[0].length).fill(0)
-  let treeScore: number[][] = new Array(treeGrid.length).fill(0).map(() => new Array(treeGrid[0].length).fill(0))
-  let mostScenicScore: number = 0
+  const treeGrid = parseInputFileToNumberArray("./inputs/day8.txt")
+  const topTallestTree: number[] = new Array(treeGrid.length).fill(0) as number[]
+  const leftTallestTree: number[] = new Array(treeGrid[0].length).fill(0) as number[]
+  const bottomTallestTree: number[] = new Array(treeGrid.length).fill(0) as number[]
+  const rightTallestTree: number[] = new Array(treeGrid[0].length).fill(0) as number[]
+  const treeScore: number[][] = new Array(treeGrid.length).fill(0).map(() => new Array(treeGrid[0].length).fill(0) as number[])
+  let mostScenicScore = 0
 
   for(let row = 0; row < treeGrid.length; ++row) {
     for(let column = 0; column < treeGrid[row].length; ++column) {
-      let currentTree = treeGrid[row][column]
+      const currentTree = treeGrid[row][column]
       let leftScore = 0
       let topScore = 0
 
@@ -132,7 +132,7 @@ const getMostScenicTreeScore = () => {
 
   for(let row = treeGrid.length - 1; row >= 0; --row) {
     for(let column = treeGrid[row].length - 1; column >= 0; --column) {
-      let currentTree = treeGrid[row][column]
+      const currentTree = treeGrid[row][column]
       let bottomScore = 0
       let rightScore = 0
 

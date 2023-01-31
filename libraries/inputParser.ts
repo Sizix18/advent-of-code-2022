@@ -6,15 +6,15 @@ export const parseInputFileToString = (fileLocation: string): string => {
 }
 
 export const parseInputFileToStringArray = (fileLocation: string): string[] => {
-  let input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
+  const input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
   return input.split("\n")
 }
 
 export const parseInputFileToNumberArray = (fileLocation: string): number[][] => {
-  let numberArray: number[][] = []
-  let input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
-  let inputLines = input.split("\n")
-  for(let line of inputLines) {
+  const numberArray: number[][] = []
+  const input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
+  const inputLines = input.split("\n")
+  for(const line of inputLines) {
     if(line) {
       numberArray.push(line.split("").map((value) => parseInt(value, 0)))
     }
@@ -23,10 +23,10 @@ export const parseInputFileToNumberArray = (fileLocation: string): number[][] =>
 }
 
 export const parseInputFileTo2DStringArray = (fileLocation: string): string[][] => {
-  let stringArray: string[][] = []
-  let input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
-  let inputLines = input.split("\n")
-  for(let line of inputLines) {
+  const stringArray: string[][] = []
+  const input = fs.readFileSync(fileLocation, { encoding: "utf-8"})
+  const inputLines = input.split("\n")
+  for(const line of inputLines) {
     if(line) {
       stringArray.push(line.split(""))
       }

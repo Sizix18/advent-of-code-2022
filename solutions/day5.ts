@@ -11,11 +11,11 @@ import { parseInputFileToStringArray } from "../libraries/inputParser"
 
 
 const extractContainerTable = (inputList: string[]): string[] => {
-  let containerStrings: string[] = []
+  const containerStrings: string[] = []
   let line = inputList[0]
   while(line !== ""){    
 
-    let containerString = inputList.shift()
+    const containerString = inputList.shift()
     if(containerString !== undefined) {
       containerStrings.push(containerString)
       line = inputList[0]
@@ -28,14 +28,14 @@ const extractContainerTable = (inputList: string[]): string[] => {
 const createContainerArrayFromContainerStringTable = (containerStrings: string[]): string[][] => {
   const containerArray: string[][] = []
 
-  let containerLength = (containerStrings[0].length + 1)/ 4
+  const containerLength = (containerStrings[0].length + 1)/ 4
   for(let i = 0; i < containerLength; ++i) {
     containerArray.push([])
   }
 
   containerStrings.pop()
 
-  for(let line of containerStrings) {
+  for(const line of containerStrings) {
     for(let contentsIndex = 1; contentsIndex < line.length - 1; contentsIndex += 4) {
       if(line[contentsIndex] !== " ") {
         containerArray[((contentsIndex - 1) / 4)].push(line[contentsIndex])
@@ -47,10 +47,10 @@ const createContainerArrayFromContainerStringTable = (containerStrings: string[]
 }
 
 const extractContainerMovementNumbers = (orderStrings: string[]): number[][] => {
-  let orders: number[][] = []
+  const orders: number[][] = []
 
-  for(let order of orderStrings) {
-    let numberArray = order.match(/[0-9]+/gm)?.map(Number)
+  for(const order of orderStrings) {
+    const numberArray = order.match(/[0-9]+/gm)?.map(Number)
     if(numberArray?.length === 3) {
       orders.push(numberArray)
     }
@@ -61,16 +61,16 @@ const extractContainerMovementNumbers = (orderStrings: string[]): number[][] => 
 
 
 const containerOrganizer = () => {
-  let inputList: string[] = parseInputFileToStringArray('./inputs/day5.txt')
+  const inputList: string[] = parseInputFileToStringArray('./inputs/day5.txt')
 
-  let containerStrings = extractContainerTable(inputList)
-  let containerArray = createContainerArrayFromContainerStringTable(containerStrings)
-  let movementNumbers = extractContainerMovementNumbers(inputList)
+  const containerStrings = extractContainerTable(inputList)
+  const containerArray = createContainerArrayFromContainerStringTable(containerStrings)
+  const movementNumbers = extractContainerMovementNumbers(inputList)
 
-  for(let movementArray of movementNumbers) {
-    let [ movementCount, moveFrom, moveTo ] = movementArray
+  for(const movementArray of movementNumbers) {
+    const [ movementCount, moveFrom, moveTo ] = movementArray
     for(let move = 0; move < movementCount; ++move) {
-      let contents = containerArray[moveFrom - 1].shift()
+      const contents = containerArray[moveFrom - 1].shift()
       if(contents !== undefined) {
         containerArray[moveTo - 1].unshift(contents)
       }
@@ -78,7 +78,7 @@ const containerOrganizer = () => {
   }
 
   let answer = ""
-  for(let array of containerArray) {
+  for(const array of containerArray) {
     answer += (array[0])
   }
   return answer
@@ -98,31 +98,31 @@ After the rearrangement procedure completes, what crate ends up on top of each s
 
 
 const containerOrganizerPlus = () => {
-  let inputList: string[] = parseInputFileToStringArray('./inputs/day5.txt')
+  const inputList: string[] = parseInputFileToStringArray('./inputs/day5.txt')
 
-  let containerStrings = extractContainerTable(inputList)
-  let containerArray = createContainerArrayFromContainerStringTable(containerStrings)
-  let movementNumbers = extractContainerMovementNumbers(inputList)
+  const containerStrings = extractContainerTable(inputList)
+  const containerArray = createContainerArrayFromContainerStringTable(containerStrings)
+  const movementNumbers = extractContainerMovementNumbers(inputList)
 
-  for(let movementArray of movementNumbers) {
-    let [ movementCount, moveFrom, moveTo ] = movementArray
+  for(const movementArray of movementNumbers) {
+    const [ movementCount, moveFrom, moveTo ] = movementArray
 
-    let stack: string[] = []
+    const stack: string[] = []
     for(let move = 0; move < movementCount; ++move) {
-      let contents = containerArray[moveFrom - 1].shift()
+      const contents = containerArray[moveFrom - 1].shift()
       if(contents !== undefined) {
         stack.unshift(contents)
       }
 
     }
 
-    for(let contents of stack) {
+    for(const contents of stack) {
         containerArray[moveTo - 1].unshift(contents)
       }
   }
 
   let answer = ""
-  for(let array of containerArray) {
+  for(const array of containerArray) {
     answer += (array[0])
   }
   return answer

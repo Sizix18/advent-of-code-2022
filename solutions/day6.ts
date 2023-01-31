@@ -10,9 +10,9 @@ import { parseInputFileToString } from "../libraries/inputParser"
 
 
 const findUniqueStringSequence = (uniqueSequenceLength: number) => {
-  let input = parseInputFileToString("./inputs/day6.txt")
-  let set: Set<string> = new Set()
-  let window: string[] = []
+  const input = parseInputFileToString("./inputs/day6.txt")
+  const set: Set<string> = new Set()
+  const window: string[] = []
   let index = 0
   while(set.size !== uniqueSequenceLength) {
     if(!set.has(input[index])) {
@@ -21,8 +21,8 @@ const findUniqueStringSequence = (uniqueSequenceLength: number) => {
       ++index
     } else {
       let windowElement = window.shift()
-      while ( windowElement !== input[index]) {
-        set.delete(windowElement!)
+      while ( windowElement !== input[index] && windowElement) {
+        set.delete(windowElement)
         windowElement = window.shift()
       }
       window.push(input[index])

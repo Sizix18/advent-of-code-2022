@@ -10,10 +10,10 @@ type instruction = [string, number]
 type coordinate = [number, number]
 
 const convertInputStringsToInstructionPairs = (input: string[]): instruction[] => {
-  let instructions: instruction[] = []
-  for(let line of input){
+  const instructions: instruction[] = []
+  for(const line of input){
     if(line.length > 0) {
-      let splitLine = line.split(' ')
+      const splitLine = line.split(' ')
       instructions.push([splitLine[0], parseInt(splitLine[1])])
     }
   }
@@ -26,14 +26,14 @@ const areNeighbors = (prev: coordinate, current: coordinate): boolean => {
 }
 
 const trackRopeTailPositions = () => {
-  let input = parseInputFileToStringArray('./inputs/day9.txt')
-  let head: coordinate = [0,0]
-  let tail: coordinate = [0,0]
-  let tailDestinationSet = new Set()
-  let instructions = convertInputStringsToInstructionPairs(input)
+  const input = parseInputFileToStringArray('./inputs/day9.txt')
+  const head: coordinate = [0,0]
+  const tail: coordinate = [0,0]
+  const tailDestinationSet = new Set()
+  const instructions = convertInputStringsToInstructionPairs(input)
 
-  for(let instruction of instructions) {
-    let [move, distance] = instruction
+  for(const instruction of instructions) {
+    const [move, distance] = instruction
 
     for(let index = 0; index < distance; index++) {
       if(move === 'U') {
@@ -79,15 +79,15 @@ How many positions does the tail of the rope visit at least once?
 
 
 const trackRopeTailPositionsOfAnyLengthRope = (ropeLength: number) => {
-  let input = parseInputFileToStringArray('./inputs/day9.txt')
+  const input = parseInputFileToStringArray('./inputs/day9.txt')
 
-  let rope: coordinate[] = Array.from(Array(ropeLength), () => [0, 0] as [number, number])
+  const rope: coordinate[] = Array.from(Array(ropeLength), () => [0, 0] as [number, number])
 
-  let tailDestinationSet = new Set()
-  let instructions = convertInputStringsToInstructionPairs(input)
-  let head = rope[0]
-  for(let instruction of instructions) {
-    let [move, distance] = instruction
+  const tailDestinationSet = new Set()
+  const instructions = convertInputStringsToInstructionPairs(input)
+  const head = rope[0]
+  for(const instruction of instructions) {
+    const [move, distance] = instruction
 
     for(let index = 0; index < distance; index++) {
       if(move === 'U') {
@@ -102,8 +102,8 @@ const trackRopeTailPositionsOfAnyLengthRope = (ropeLength: number) => {
         head[1]++
       }
       for(let knotIndex = 1; knotIndex < rope.length; ++knotIndex) {
-        let previous = rope[knotIndex - 1]
-        let current = rope[knotIndex]
+        const previous = rope[knotIndex - 1]
+        const current = rope[knotIndex]
 
         if(!areNeighbors(previous, current)) {
           for(let i = 0; i < current.length; ++i) {

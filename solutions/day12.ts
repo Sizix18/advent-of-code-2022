@@ -15,10 +15,10 @@ const DESTINATION_INDEX = 'E'.charCodeAt(0)
 const LOWEST_ELEVATION_INDEX = 'a'.charCodeAt(0)
 const HIGHEST_ELEVATION_INDEX = 'z'.charCodeAt(0)
 const findStartAndEndAndGenerateMap = (inputList: string[]): [number[][], [number, number], [number, number]] => {
-  let map: number[][] = []
+  const map: number[][] = []
   let start: [number, number] = [0,0]
   let end: [number, number] = [0,0]
-  for(let [index, line] of inputList.entries()) {
+  for(const [index, line] of inputList.entries()) {
     if(line) {
       if(line.includes('S')){
         start = [index, line.indexOf('S')]
@@ -34,7 +34,7 @@ const findStartAndEndAndGenerateMap = (inputList: string[]): [number[][], [numbe
 }
 
 const getNeighbors = (location: [number, number], map: number[][]): [number, number][]=> {
-  let [x,y] = location
+  const [x,y] = location
   return [[x-1,y], [x+1,y],[x,y-1],[x,y+1]].filter(([x,y]) => typeof map[x]?.[y] !== 'undefined') as [number, number][]
 
 }
@@ -47,12 +47,12 @@ const isLocationTraversable = (currentElevationIndex: number, consideredLocation
 
 const shortestPath = (map: number[][], starts: [number, number][], destination: [number, number]): number => {
   const visited = new Set<string>([starts[0].toString()])
-  let queue: [[number, number], number][] = starts.map(start => [start, 0])
+  const queue: [[number, number], number][] = starts.map(start => [start, 0])
   while(queue.length > 0) {
-    let [current, distance] = queue.shift() as [[number, number], number]
+    const [current, distance] = queue.shift() as [[number, number], number]
     if(current.toString() == destination.toString()) return distance
-    let neighbors = getNeighbors(current, map)
-    for(let neighbor of neighbors) {
+    const neighbors = getNeighbors(current, map)
+    for(const neighbor of neighbors) {
       if(!visited.has(neighbor.toString()) && isLocationTraversable(map[current[0]][current[1]], map[neighbor[0]][neighbor[1]])) {
         visited.add(neighbor.toString())
         queue.push([neighbor, distance + 1])
@@ -63,8 +63,8 @@ const shortestPath = (map: number[][], starts: [number, number][], destination: 
 }
 
 const findShortestPathFromStartUpTheMountain = () => {
-  let inputList = parseInputFileToStringArray('./inputs/day12.txt')
-  let [map, start, end] = findStartAndEndAndGenerateMap(inputList)
+  const inputList = parseInputFileToStringArray('./inputs/day12.txt')
+  const [map, start, end] = findStartAndEndAndGenerateMap(inputList)
   return shortestPath(map, [start], end)
 }
 
@@ -84,21 +84,22 @@ What is the fewest steps required to move starting from any square with elevatio
 
 
 const getListOfAllLowestElevationLocations = (map: number[][]): [number, number][] => {
-  let lowestElevations: [number, number][] = []
-  for(let row in map) {
-    for(let column in map[row]) {
-      if(map[row][column] === START_INDEX || map[row][column] === LOWEST_ELEVATION_INDEX) lowestElevations.push([parseInt(row), parseInt(column)])
-    }
-  }
+  const lowestElevations: [number, number][] = []
+  map.forEach((row, rowIndex) => {
+    row.forEach(( _, columnIndex) => {
+      if(map[rowIndex][columnIndex] === START_INDEX || map[rowIndex][columnIndex] === LOWEST_ELEVATION_INDEX) lowestElevations.push([rowIndex, columnIndex])
+    })
+  })
   return lowestElevations
 }
 
 const findShortestPathFromLowestElevationUpTheMountain = () => {
-  let inputList = parseInputFileToStringArray('./inputs/day12.txt')
-  let [map, start, end] = findStartAndEndAndGenerateMap(inputList)
-  let starts = getListOfAllLowestElevationLocations(map)
-  return shortestPath(map, [start], end)
-
+  const inputList = parseInputFileToStringArray('./inputs/day12.txt')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [map, _, end] = findStartAndEndAndGenerateMap(inputList)
+  const starts = getListOfAllLowestElevationLocations(map)
+  console.log(starts)
+  return shortestPath(map, starts, end)
 
 }
 

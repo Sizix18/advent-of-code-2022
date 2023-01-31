@@ -8,7 +8,7 @@ import { parseInputFileToString } from '../libraries/inputParser'
 const findElfWithMostFood =  () => {
   let input = ""
   input = parseInputFileToString('./inputs/day1.txt')
-  let mostCalories = parseInput(input)
+  const mostCalories = parseInput(input)
 
   return mostCalories
 }
@@ -16,7 +16,7 @@ const findElfWithMostFood =  () => {
 const parseInput = (input: string): number => {
   let calorieTotal = 0
   let tempString = ''
-  let calorieList: number[] = []
+  const calorieList: number[] = []
   for(let charIndex = 0; charIndex < input.length; charIndex++) {
     if(input[charIndex] !== "\n") {
       tempString += input[charIndex]
